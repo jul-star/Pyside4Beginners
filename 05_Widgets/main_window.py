@@ -1,6 +1,6 @@
 # menu
 from PySide6.QtWidgets import QMenuBar, QMenu, QToolBar, QMainWindow
-from PySide6.QtWidgets import QWidgetAction
+from PySide6.QtWidgets import QStatusBar
 from PySide6.QtCore import Qt, QSize
 from PySide6.QtGui import QAction, QIcon
 
@@ -41,11 +41,28 @@ class MainWindow(QMainWindow):
         toolbar.addAction(a1)
 
         a2 = QAction("Other Action", self)
+        a2.setStatusTip("A2 status")
+        a2.triggered.connect(self.tool_bar_a2)
+        toolbar.addAction(a2)
+
+        a3 = QAction(QIcon("01.png"), "A3",self)
+        a3.setStatusTip("A3 status")
+        a3.triggered.connect(self.tool_bar_a3)
+        toolbar.addAction(a3)
 
         self.addToolBar(toolbar)
 
+        self.setStatusBar(QStatusBar(self))
+        
+
     def tool_bar_a1(self):
         print("tool_bar_action 1")
+    
+    def tool_bar_a2(self):
+        print("tool_bar_action 2")
+
+    def tool_bar_a3(self):
+        self.statusBar().showMessage("Hello from A3",3000) # milliseconde
 
     def quit_app(self):
         print("Quit app")
